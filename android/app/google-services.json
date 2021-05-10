@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "524897937797",
+    "project_id": "kstmis-76e37",
+    "storage_bucket": "kstmis-76e37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524897937797:android:bea34efa674d003a5bbcec",
+        "android_client_info": {
+          "package_name": "com.example.kst_survey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524897937797-hfi8c7s7jdp6s0eu6eubocol4u3kfdtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEvfTSplD1EplB8pkQaTsiSLRrtqeETbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524897937797-hfi8c7s7jdp6s0eu6eubocol4u3kfdtk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
