@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kst_survey/models/doctor.dart';
 import 'package:kst_survey/screens/logins/login_screen.dart';
-import 'package:kst_survey/screens/pdf_page.dart';
+import 'package:kst_survey/screens/pdf/pdf_page.dart';
 import 'package:kst_survey/screens/update_screen.dart';
 import 'package:kst_survey/services/auth_service.dart';
 import 'package:kst_survey/widgets/alert_progress.dart';

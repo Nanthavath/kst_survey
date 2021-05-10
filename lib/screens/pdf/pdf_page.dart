@@ -9,6 +9,11 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
+import 'data.dart';
+import 'data_list.dart';
+import 'data_map.dart';
+import 'heading.dart';
+
 class PDFPage extends StatefulWidget {
   final Doctor data;
 
@@ -59,6 +64,7 @@ class _PDFPageState extends State<PDFPage> {
                         bottom: 40,
                       ),
                       child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Text(
                             'ແບບຟອມເກັບກໍາສະຖິຕິທ່ານໝໍຊ່ຽວຊານ',
@@ -66,11 +72,86 @@ class _PDFPageState extends State<PDFPage> {
                               fontSize: 20,
                             ),
                           ),
-                          pw.Image(
-                            profileImage,
-                            height: 150,
-                            width: 150,
-                            fit: pw.BoxFit.contain,
+                          pw.SizedBox(height: 20),
+                          pw.Row(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Image(
+                                profileImage,
+                                height: 150,
+                                width: 150,
+                                fit: pw.BoxFit.contain,
+                              ),
+                              pw.Container(
+                                child: pw.Column(
+                                  crossAxisAlignment:
+                                      pw.CrossAxisAlignment.start,
+                                  children: [
+                                    Data(
+                                      title: 'ຊື່ ແລະ ນາມສະກຸນ',
+                                      text:
+                                          '${data.firstName} ${data.lastName}',
+                                    ),
+                                    Data(
+                                      title: 'ວັນເດືອນປີເກີດ',
+                                      text: '${data.birthDay}',
+                                    ),
+                                    Data(
+                                      title: 'ຕໍາແໜ່ງປັດຈຸບັນ',
+                                      text: '${data.currentPosition}',
+                                    ),
+                                    Data(
+                                      title: 'ບ່ອນສັງກັດ (ບ່ອນເຮັດວຽກ)',
+                                      text: '${data.office}',
+                                    ),
+                                    Data(
+                                      title: 'ບ້ານຢູ່ປັດຈຸບັນ',
+                                      text: '${data.office}',
+                                    ),
+                                    Data(
+                                      title: 'ເບີໂທ',
+                                      text: '${data.phone}',
+                                    ),
+                                    Data(
+                                      title: 'Email',
+                                      text: '${data.email}',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          pw.Divider(),
+                          DataList(
+                            title: 'ເປັນໝໍຊ່ຽວຊານດ້ານ',
+                            data: data.technical,
+                          ),
+                          pw.Text(
+                            'ເປັນອາຈານສອນ',
+                            style: pw.TextStyle(fontSize: 16),
+                          ),
+                          Data(title: 'ສະຖານທີ່ສອນ', text: data.teachAt),
+                          DataList(
+                            title: ' ມີ Connection /Power ກັບ',
+                            data: data.connection,
+                          ),
+                          DataList(
+                            title: 'ເສດຖະກິດຄອບຄົວ',
+                            data: data.familyBusiness,
+                          ),
+
+                          pw.Text(
+                            'ຂໍ້ມູນສ່ວນໂຕ',
+                            style: pw.TextStyle(fontSize: 16),
+                          ),
+                          // pw.Text(
+                          //   '${data.personal['community']}',
+                          // ),
+
+                          DataMap(
+                            title: 'ຂໍ້ມູນສ່ວນໂຕ',
+                            titleList: ['community','hobbies','sportType'],
+                            data: data.personal,
                           ),
                         ],
                       ),
@@ -84,6 +165,14 @@ class _PDFPageState extends State<PDFPage> {
       ),
     );
     return pdf.save();
+  }
+
+  @override
+  void initState() {
+    // setState(() {
+    //   techList == List<String>.from(data.technical);
+    // });
+    super.initState();
   }
 
   @override
