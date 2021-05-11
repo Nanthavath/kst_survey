@@ -8,10 +8,11 @@ import 'pdf_page.dart';
 
 class DataMap extends pw.StatelessWidget {
   final List<String> titleList;
+  final List<String> labelList;
   final Map data;
   final String title;
 
-  DataMap({this.data, this.title, this.titleList});
+  DataMap({this.data, this.title, this.titleList, this.labelList});
 
   @override
   pw.Widget build(pw.Context context) {
@@ -24,21 +25,27 @@ class DataMap extends pw.StatelessWidget {
             '$title',
             style: pw.TextStyle(fontSize: 16),
           ),
+          pw.SizedBox(height: 10),
           pw.Container(
-            margin: pw.EdgeInsets.only(left: 10, right: 5),
+            margin: pw.EdgeInsets.only(left: 10, right: 5,),
             child: pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: List.generate(
                 titleList.length,
                 (index) {
-                  return pw.Row(
-                    children: [
-                      pw.Text(
-                        '${titleList[index]}:',
-                      ),
-                      pw.SizedBox(width: 5),
-                      pw.Text(data[titleList[index]]),
-                    ],
+                  return pw.Padding(
+                    padding: pw.EdgeInsets.only( bottom: 10),
+                    child: pw.Row(
+                      children: [
+                        pw.Text(
+                          '${labelList[index]}:',
+                          style: pw.TextStyle(fontSize: 14),
+                        ),
+                        pw.SizedBox(width: 5),
+                        pw.Text(data[titleList[index]],
+                            style: pw.TextStyle(fontSize: 14)),
+                      ],
+                    ),
                   );
                 },
               ),

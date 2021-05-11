@@ -1,4 +1,4 @@
-package com.example.kst_survey
+package me.kstmis.survey
 
 import io.flutter.embedding.android.FlutterActivity
 

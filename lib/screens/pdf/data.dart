@@ -13,14 +13,13 @@ class Data extends pw.StatelessWidget {
   @override
   pw.Widget build(pw.Context context) {
     return pw.Container(
-      padding: pw.EdgeInsets.only(left: 20,bottom: 5),
+      padding: pw.EdgeInsets.only(left: 20, bottom: 10),
       child: pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
-          pw.Text(
-            '$title:',
-          ),
+          pw.Text('$title:', style: pw.TextStyle(fontSize: 14)),
           pw.SizedBox(width: 5),
-          pw.Text('$text'),
+          pw.Text('$text', style: pw.TextStyle(fontSize: 14)),
         ],
       ),
     );

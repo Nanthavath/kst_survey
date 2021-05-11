@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kst_survey">
+    package="me.kstmis.survey">
    <application
         android:label="KST-Doctor"
         android:icon="@mipmap/ic_launcher">

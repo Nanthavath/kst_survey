@@ -11,7 +11,6 @@ class DataList extends pw.StatelessWidget {
   final String title;
 
   DataList({this.data, this.title});
-
   @override
   pw.Widget build(pw.Context context) {
     return pw.Container(
@@ -23,23 +22,27 @@ class DataList extends pw.StatelessWidget {
             '$title',
             style: pw.TextStyle(fontSize: 16),
           ),
+          pw.SizedBox(height: 10),
           pw.Column(
             children: List.generate(
               data.length,
                   (index) {
-                return pw.Row(
-                  children: [
-                    pw.Container(
-                      margin: pw.EdgeInsets.only(left: 10, right: 5),
-                      width: 8,
-                      height: 8,
-                      decoration: pw.BoxDecoration(
-                        color: green,
-                        shape: pw.BoxShape.circle,
+                return pw.Padding(
+                  padding: pw.EdgeInsets.only(bottom: 10),
+                  child: pw.Row(
+                    children: [
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(left: 10, right: 5),
+                        width: 8,
+                        height: 8,
+                        decoration: pw.BoxDecoration(
+                          color: green,
+                          shape: pw.BoxShape.circle,
+                        ),
                       ),
-                    ),
-                    pw.Text(data[index]),
-                  ],
+                      pw.Text(data[index]),
+                    ],
+                  ),
                 );
               },
             ),

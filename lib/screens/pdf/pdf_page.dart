@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kst_survey/models/data.dart';
@@ -37,142 +38,201 @@ class _PDFPageState extends State<PDFPage> {
     final logo = pw.MemoryImage(
       (await rootBundle.load('assets/images/kst.png')).buffer.asUint8List(),
     );
+    final pdf = pw.Document(title: 'Information');
 
-    final pdf = pw.Document();
     final pageTheme = await _myPageTheme(format);
     pdf.addPage(
       pw.MultiPage(
         pageTheme: pageTheme,
+        header: (context) {
+          return pw.Image(
+            logo,
+            height: 50,
+            width: 50,
+            fit: pw.BoxFit.contain,
+          );
+        },
         build: (context) => [
-          pw.Partitions(
-            children: [
-              pw.Partition(
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
+          pw.Container(
+            padding: pw.EdgeInsets.all(20),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: <pw.Widget>[
+                pw.SizedBox(height: 20),
+                pw.Text(
+                  'ແບບຟອມເກັບກໍາສະຖິຕິທ່ານໝໍຊ່ຽວຊານ',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 20),
+                pw.Row(
+                  // crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: <pw.Widget>[
                     pw.Image(
-                      logo,
-                      height: 50,
-                      width: 50,
+                      profileImage,
+                      height: 150,
+                      width: 150,
                       fit: pw.BoxFit.contain,
                     ),
                     pw.Container(
-                      padding: pw.EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 40,
-                        bottom: 40,
-                      ),
                       child: pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text(
-                            'ແບບຟອມເກັບກໍາສະຖິຕິທ່ານໝໍຊ່ຽວຊານ',
-                            style: pw.TextStyle(
-                              fontSize: 20,
-                            ),
+                        children: <pw.Widget>[
+                          Data(
+                            title: 'ຊື່ ແລະ ນາມສະກຸນ',
+                            text: '${data.firstName} ${data.lastName}',
                           ),
-                          pw.SizedBox(height: 20),
-                          pw.Row(
-                            crossAxisAlignment: pw.CrossAxisAlignment.start,
-                            children: [
-                              pw.Image(
-                                profileImage,
-                                height: 150,
-                                width: 150,
-                                fit: pw.BoxFit.contain,
-                              ),
-                              pw.Container(
-                                child: pw.Column(
-                                  crossAxisAlignment:
-                                      pw.CrossAxisAlignment.start,
-                                  children: [
-                                    Data(
-                                      title: 'ຊື່ ແລະ ນາມສະກຸນ',
-                                      text:
-                                          '${data.firstName} ${data.lastName}',
-                                    ),
-                                    Data(
-                                      title: 'ວັນເດືອນປີເກີດ',
-                                      text: '${data.birthDay}',
-                                    ),
-                                    Data(
-                                      title: 'ຕໍາແໜ່ງປັດຈຸບັນ',
-                                      text: '${data.currentPosition}',
-                                    ),
-                                    Data(
-                                      title: 'ບ່ອນສັງກັດ (ບ່ອນເຮັດວຽກ)',
-                                      text: '${data.office}',
-                                    ),
-                                    Data(
-                                      title: 'ບ້ານຢູ່ປັດຈຸບັນ',
-                                      text: '${data.office}',
-                                    ),
-                                    Data(
-                                      title: 'ເບີໂທ',
-                                      text: '${data.phone}',
-                                    ),
-                                    Data(
-                                      title: 'Email',
-                                      text: '${data.email}',
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          Data(
+                            title: 'ວັນເດືອນປີເກີດ',
+                            text: '${data.birthDay}',
                           ),
-                          pw.Divider(),
-                          DataList(
-                            title: 'ເປັນໝໍຊ່ຽວຊານດ້ານ',
-                            data: data.technical,
+                          Data(
+                            title: 'ຕໍາແໜ່ງປັດຈຸບັນ',
+                            text: '${data.currentPosition}',
                           ),
-                          pw.Text(
-                            'ເປັນອາຈານສອນ',
-                            style: pw.TextStyle(fontSize: 16),
+                          Data(
+                            title: 'ບ່ອນສັງກັດ (ບ່ອນເຮັດວຽກ)',
+                            text: '${data.office}',
                           ),
-                          Data(title: 'ສະຖານທີ່ສອນ', text: data.teachAt),
-                          DataList(
-                            title: ' ມີ Connection /Power ກັບ',
-                            data: data.connection,
+                          Data(
+                            title: 'ບ້ານຢູ່ປັດຈຸບັນ',
+                            text: '${data.office}',
                           ),
-                          DataList(
-                            title: 'ເສດຖະກິດຄອບຄົວ',
-                            data: data.familyBusiness,
+                          Data(
+                            title: 'ເບີໂທ',
+                            text: '${data.phone}',
                           ),
-
-                          pw.Text(
-                            'ຂໍ້ມູນສ່ວນໂຕ',
-                            style: pw.TextStyle(fontSize: 16),
-                          ),
-                          // pw.Text(
-                          //   '${data.personal['community']}',
-                          // ),
-
-                          DataMap(
-                            title: 'ຂໍ້ມູນສ່ວນໂຕ',
-                            titleList: ['community','hobbies','sportType'],
-                            data: data.personal,
+                          Data(
+                            title: 'Email',
+                            text: '${data.email}',
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          )
+                pw.Divider(color: PdfColor.fromHex('#e6e6e6')),
+                pw.Container(
+                  child: pw.Row(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: <pw.Widget>[
+                      pw.Expanded(
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: <pw.Widget>[
+                            DataList(
+                              title: 'ເປັນໝໍຊ່ຽວຊານດ້ານ',
+                              data: data.technical,
+                            ),
+                            pw.Text(
+                              'ເປັນອາຈານສອນ',
+                              style: pw.TextStyle(fontSize: 16),
+                            ),
+                            pw.SizedBox(height: 10),
+                            Data(title: 'ສະຖານທີ່ສອນ', text: data.teachAt),
+                            DataList(
+                              title: 'ມີ Connection /Power ກັບ',
+                              data: data.connection,
+                            ),
+                            DataList(
+                              title: 'ເສດຖະກິດຄອບຄົວ',
+                              data: data.familyBusiness,
+                            ),
+                          ],
+                        ),
+                      ),
+                      pw.VerticalDivider(),
+                      pw.Expanded(
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: <pw.Widget>[
+                            DataMap(
+                              title: 'ຂໍ້ມູນສ່ວນໂຕ',
+                              titleList: ['community', 'sportType', 'hobbies'],
+                              labelList: [
+                                'ເຂົ້າສັງຄົມ/ ສັງສັນ',
+                                'ຫຼິ້ນກິລາ',
+                                'ກິຈະກຳເວລາວ່າງ'
+                              ],
+                              data: data.personal,
+                            ),
+                            pw.Text(
+                                'ສະມາຊິກໃນຄອບຄົວ: ${data.familys['member']} ຄົນ',
+                                style: pw.TextStyle(fontSize: 16)),
+                            pw.SizedBox(height: 5),
+                            DataList(
+                              title: 'ຜູ້ເຮັດວຽກນໍາລັດ',
+                              data: data.familys['workingAtGov'],
+                            ),
+                            DataMap(
+                              title:
+                                  'ໝາຍເຫດ: ສະມາຊິກໃນຄອບຄົວ ເຮັດວຽກທີ່ກ່ຽວຂ້ອງກັບວຽກງານສຸຂະພາບ & ການເງີນ ໃນສາຂາການແພດ',
+                              labelList: [
+                                'ຊື່',
+                                'ນາມສະກຸນ',
+                                'ເບີໂທຕິດຕໍ່',
+                                'ສະຖານທີ່ເຮັດວຽກ',
+                                'ຕໍາແໜ່ງ'
+                              ],
+                              titleList: [
+                                'firstName',
+                                'lastName',
+                                'phone',
+                                'office',
+                                'position'
+                              ],
+                              data: data.remark,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                pw.Divider(color: PdfColor.fromHex('#e6e6e6')),
+                pw.SizedBox(height: 10),
+                DataMap(
+                  title:
+                      'ເປັນທີ່ປຶກສາ ຫຼື KOL ໃຫ້ກັບບໍລິສັດຄູ່ແຂ່ງ ຫຼື ສີນຄ້າອື່ນທີ່ບໍ່ແມ່ນຂອງບໍລິສັດເຮົາ',
+                  labelList: ['ບໍລິສັດ', 'ສິນຄ້າ'],
+                  titleList: ['company', 'product'],
+                  data: data.kol,
+                ),
+                pw.Container(
+                  padding: pw.EdgeInsets.all(15),
+                  decoration: pw.BoxDecoration(
+                    border: pw.Border.all(color: PdfColor.fromHex('#e6e6e6')),
+                  ),
+                  child: pw.Column(
+                    children: [
+                      pw.Text('ຜົນປະໂຫຍດທີ່ໄດ້ຮັບຈາກບໍລິສັດອື່ນ',
+                          style: pw.TextStyle(fontSize: 16)),
+                      pw.SizedBox(height: 10),
+                      pw.Text('${data.benefits}'),
+                    ],
+                  ),
+                ),
+                pw.Container(
+                  padding: pw.EdgeInsets.all(15),
+                  decoration: pw.BoxDecoration(
+                    border: pw.Border.all(color: PdfColor.fromHex('#e6e6e6')),
+                  ),
+                  child: pw.Column(
+                    children: [
+                      pw.Text('ຂໍ້ມູນອື່ນໆ', style: pw.TextStyle(fontSize: 16)),
+                      pw.SizedBox(height: 10),
+                      pw.Text('${data.other}'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
     return pdf.save();
-  }
-
-  @override
-  void initState() {
-    // setState(() {
-    //   techList == List<String>.from(data.technical);
-    // });
-    super.initState();
   }
 
   @override
@@ -213,6 +273,9 @@ class _PDFPageState extends State<PDFPage> {
               ),
               Expanded(
                 child: PdfPreview(
+                  dynamicLayout: true,
+                  maxPageWidth: 700,
+                  initialPageFormat: PdfPageFormat.a4,
                   build: (format) => _generatePdf(format),
                 ),
               ),
@@ -235,8 +298,8 @@ class _PDFPageState extends State<PDFPage> {
       margin: pw.EdgeInsets.all(30),
       pageFormat: format,
       theme: pw.ThemeData.withFont(
-        base: pw.Font.ttf(
-            await rootBundle.load('assets/fonts/BoonBaan-Regular.ttf')),
+        base:
+            pw.Font.ttf(await rootBundle.load('assets/fonts/saysettha_ot.ttf')),
         bold: pw.Font.ttf(
             await rootBundle.load('assets/fonts/BoonBaan-Bold.ttf')),
       ),
