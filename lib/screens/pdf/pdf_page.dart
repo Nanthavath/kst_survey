@@ -200,11 +200,13 @@ class _PDFPageState extends State<PDFPage> {
                   data: data.kol,
                 ),
                 pw.Container(
+                  width: 500,
                   padding: pw.EdgeInsets.all(15),
                   decoration: pw.BoxDecoration(
                     border: pw.Border.all(color: PdfColor.fromHex('#e6e6e6')),
                   ),
                   child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text('ຜົນປະໂຫຍດທີ່ໄດ້ຮັບຈາກບໍລິສັດອື່ນ',
                           style: pw.TextStyle(fontSize: 16)),
@@ -213,12 +215,15 @@ class _PDFPageState extends State<PDFPage> {
                     ],
                   ),
                 ),
+                pw.SizedBox(height: 10),
                 pw.Container(
+                  width: 500,
                   padding: pw.EdgeInsets.all(15),
                   decoration: pw.BoxDecoration(
                     border: pw.Border.all(color: PdfColor.fromHex('#e6e6e6')),
                   ),
                   child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text('ຂໍ້ມູນອື່ນໆ', style: pw.TextStyle(fontSize: 16)),
                       pw.SizedBox(height: 10),

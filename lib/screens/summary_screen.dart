@@ -378,6 +378,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
           ),
           Container(
             height: 15,
+            padding: EdgeInsets.all(20),
             child: Center(
               child: Row(
                 children: [
